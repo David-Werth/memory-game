@@ -1,10 +1,16 @@
 const card = document.querySelectorAll(".card");
+const score = document.getElementById("score");
 let dogType = [];
 let cardList = [];
 let flipCount = 0;
+let scoreCount = 0;
+
+// Score Counter
+function scoreCounter() {
+  score.innerHTML = `Score: ${scoreCount}`;
+}
 
 // Click Event Listener
-
 card.forEach((card) => {
   card.addEventListener("click", () => {
     if (flipCount < 2) {
@@ -14,7 +20,6 @@ card.forEach((card) => {
 });
 
 // Card Flip Action
-
 function flipCard(card) {
   card.classList.add("card-flip");
   dogType.push([card.getAttribute("data-dog")]);
@@ -26,7 +31,6 @@ function flipCard(card) {
 }
 
 // Check if Cards match
-
 function check(card) {
   let dogString1 = dogType[0].toString();
   let dogString2 = dogType[1].toString();
@@ -35,6 +39,8 @@ function check(card) {
       flipCount = 0;
       dogType = [];
       cardList = [];
+      scoreCount = scoreCount + 1;
+      scoreCounter();
     } else if (dogString1 !== dogString2) {
       cardList.forEach((id) => {
         document.getElementById(id).classList.remove("card-flip");
